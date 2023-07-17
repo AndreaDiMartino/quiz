@@ -1,0 +1,70 @@
+<div>
+  <h1 class="text-center m-2">QUIZ MAKER</h1>
+</div>
+<div>
+  <form [formGroup]="form" (submit)="getQuestions()">
+    <div class="row">
+      <div class="col-5 text-cemter">
+        <select
+          id="categorySelect"
+          formControlName="category"
+          class="form-select"
+        >
+          <option [ngValue]="null">Select a category</option>
+          <option *ngFor="let cat of categories" [value]="cat.id">
+            {{ cat.name }}
+          </option>
+        </select>
+      </div>
+      <div class="col-5 text-cemter">
+        <select
+          id="difficultySelect"
+          formControlName="level"
+          class="form-select"
+        >
+          <option [ngValue]="null">Select difficulty</option>
+          <option *ngFor="let lev of levels" [value]="lev.id">
+            {{ lev.name }}
+          </option>
+        </select>
+      </div>
+      <div class="col-2 text-cemter">
+        <button
+          id="createBtn"
+          class="btn btn-primary"
+          type="submit"
+          [disabled]="!form.valid"
+        >
+          Create
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+<div *ngIf="questions.length > 0">
+  <form [formGroup]="quizForm" (submit)="submitQuiz()">
+    <div *ngFor="let quest of questions; index as i" class="mt-2">
+      <div [innerHTML]="quest.question" class="mb-1"></div>
+      <ng-container *ngFor="let answer of quest?.answers; index as y">
+        <input
+          formControlName="{{ 'question_' + i }}"
+          type="radio"
+          class="btn-check"
+          id="{{ 'question_' + i + y }}"
+          value="{{ answer }}"
+          autocomplete="off"
+        />
+        <label
+          class="btn btn-outline-success me-2 mb-2"
+          for="{{ 'question_' + i + y }}"
+          [innerHTML]="answer"
+        ></label>
+      </ng-container>
+    </div>
+    <div class="mt-4 mx-auto text-center" *ngIf="quizForm.valid">
+      <button id="createBtn" class="btn btn-secondary w-80" type="submit">
+        submit
+      </button>
+    </div>
+  </form>
+</div>

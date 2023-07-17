@@ -1,0 +1,43 @@
+<div>
+  <h1 class="text-center m-2">RESULTS</h1>
+</div>
+<div *ngFor="let question of questions">
+  <div class="mb-2" [innerHTML]="question.question"></div>
+  <div>
+    <button
+      *ngFor="let answer of question.answers"
+      class="btn me-2 mb-2"
+      [innerHTML]="answer"
+      disabled
+      [ngClass]="{
+        'btn-success': (
+          answer === question.user_anser &&
+          answer === question.correct_answer
+        ) || answer === question.correct_answer,
+        'btn-danger': (
+          answer === question.user_anser &&
+          answer !== question.correct_answer
+        ),
+        'btn-outline-success': (
+          answer !== question.user_anser && 
+          answer !== question.correct_answer
+        ),
+      }"
+    ></button>
+  </div>
+</div>
+<div
+  class="mt-4 mx-auto text-center w-60"
+  [ngClass]="{
+    'bg-danger': totalPoint <= 1,
+    'bg-warning': totalPoint >= 2 && totalPoint <= 3,
+    'bg-success': totalPoint >= 4 && totalPoint <= 5
+  }"
+>
+  You scored {{ totalPoint }} out of 5
+</div>
+<div class="mt-4 mx-auto text-center">
+  <button class="btn btn-secondary w-80" (click)="startAgain()">
+    Create a new quiz
+  </button>
+</div>

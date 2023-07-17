@@ -1,0 +1,9 @@
+label.btn.btn-outline-success.me-2.mb-2:hover {
+  color: var(--bs-btn-active-color);
+  background-color: var(--bs-btn-active-bg);
+  border-color: var(--bs-btn-active-border-color);
+}
+
+.w-80 {
+  width: 80%;
+}
